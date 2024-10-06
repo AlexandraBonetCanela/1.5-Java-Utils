@@ -7,7 +7,7 @@ public class Main {
         Directory directory = new Directory();
 
         // EXERCICI 1
-        directory.askDirectoryPath();
+        directory.inspectDirectoryContent();
 
         // EXERCICI 2
     }

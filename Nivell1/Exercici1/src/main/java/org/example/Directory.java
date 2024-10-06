@@ -1,6 +1,8 @@
 package org.example;
 
+import java.io.BufferedWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -8,22 +10,31 @@ import java.util.Scanner;
 
 public class Directory {
 
+    Path path;
     public Directory(){}
 
-    // EXERCICI 1
-    public void askDirectoryPath(){
+    public void inspectDirectoryContent(){
+        path = askDirectoryPath();
+        try (BufferedWriter writer = Files.newBufferedWriter(Paths.get("src/main/resources/directoryFile.txt"), StandardCharsets.UTF_8)){
+            listDirectoryContent(path, writer);
+        } catch (IOException x) {
+            System.err.println(x);
+        }
+    }
 
+    public Path askDirectoryPath(){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter Directory's path: ");
         Path dir = Paths.get(scanner.next());
-        listDirectoryContent(dir);
+        scanner.close();
+        return dir;
     }
 
-    public void listDirectoryContent(Path dir){
-        listDirectoryContent(dir, 0);
+    public void listDirectoryContent(Path dir, BufferedWriter writer){
+        listDirectoryContent(dir, writer,0);
     }
 
-    public void listDirectoryContent(Path pathway, int hierarchyPosition){
+    public void listDirectoryContent(Path pathway, BufferedWriter writer, int hierarchyPosition){
 
         ArrayList<Path> files = new ArrayList<>();
 
@@ -37,23 +48,21 @@ public class Directory {
                 files.add(file);
             }
             files.sort(Comparator.comparing(path -> path.getFileName().toString()));
-            Character type = ' ';
+            char type = ' ';
             for (Path file: files) {
                 if (Files.isDirectory(file)) {
                     type = 'D';
                     Path childPath = pathway.resolve(file.getFileName().toString());
                     int newHierarchyPosition = hierarchyPosition + 1;
-                    System.out.println(marker + file.getFileName() + " " + type);
-                    listDirectoryContent(childPath, newHierarchyPosition);
+                    writer.write(marker + file.getFileName() + " " + type + "\n");
+                    listDirectoryContent(childPath, writer, newHierarchyPosition);
                 } else if (Files.isRegularFile(file)) {
                     type = 'F';
-                    System.out.println(marker + file.getFileName() + " " + type);
+                    writer.write(marker + file.getFileName() + " " + type + "\n");
                 }
             }
         } catch (IOException x) {
             System.err.println(x);
         }
     }
-
-
 }
