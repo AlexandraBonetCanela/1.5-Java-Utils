@@ -6,6 +6,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Scanner;
 
 public class Directory {
@@ -66,6 +67,21 @@ public class Directory {
             }
         } catch (IOException x) {
             System.err.println(x);
+        }
+    }
+
+    public void readFile() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter .txt file directory's path: ");
+        Path filePath = Paths.get(scanner.next());
+        scanner.close();
+        try {
+            List<String> lines = Files.readAllLines(filePath, StandardCharsets.UTF_8);
+            for (String line : lines) {
+                System.out.println(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

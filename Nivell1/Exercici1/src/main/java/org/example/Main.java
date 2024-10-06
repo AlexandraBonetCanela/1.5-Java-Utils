@@ -7,8 +7,8 @@ public class Main {
         Directory directory = new Directory();
 
         // EXERCICI 1
-        directory.inspectDirectoryContent();
-
+        //directory.inspectDirectoryContent();
+        directory.readFile();
         // EXERCICI 2
     }
 }
