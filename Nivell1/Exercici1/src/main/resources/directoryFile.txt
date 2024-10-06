@@ -48,6 +48,9 @@ build D
 ->->->headers D
 ->->->->java D
 ->->->->->main D
+->resources D
+->->main D
+->->->directoryFile.txt F
 ->tmp D
 ->->compileJava D
 ->->->compileTransaction D

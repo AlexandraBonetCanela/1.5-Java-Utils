@@ -11,15 +11,18 @@ import java.util.Scanner;
 public class Directory {
 
     Path path;
+    Path resultPath;
     public Directory(){}
 
     public void inspectDirectoryContent(){
         path = askDirectoryPath();
-        try (BufferedWriter writer = Files.newBufferedWriter(Paths.get("src/main/resources/directoryFile.txt"), StandardCharsets.UTF_8)){
+        resultPath = Paths.get("src/main/resources/directoryFile.txt");
+        try (BufferedWriter writer = Files.newBufferedWriter(resultPath, StandardCharsets.UTF_8)){
             listDirectoryContent(path, writer);
         } catch (IOException x) {
             System.err.println(x);
         }
+        System.out.println("Directory content in " + resultPath.toAbsolutePath());
     }
 
     public Path askDirectoryPath(){
