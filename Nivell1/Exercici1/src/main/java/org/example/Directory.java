@@ -6,31 +6,48 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.List;
 import java.util.Scanner;
 
 public class Directory {
 
-    Path path;
     Path resultPath;
     public Directory(){}
 
-    public void inspectDirectoryContent(){
-        path = askDirectoryPath();
-        resultPath = Paths.get("src/main/resources/directoryFile.txt");
+    //EXERCICI 1
+    public void inspectDirectory(Scanner scanner){
+        Path directoryPath = askDirectoryPath(scanner);
+
+        ArrayList<Path> files = new ArrayList<>();
+
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(directoryPath)) {
+            for (Path file : stream) {
+                files.add(file);
+            }
+            files.sort(Comparator.comparing(path -> path.getFileName().toString()));
+            for (Path file : files) {
+                System.out.println(file.getFileName());
+            }
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+
+    //EXERCICI 2 & 3
+    public void inspectTreeDirectoryContent(Scanner scanner){
+        Path path = askDirectoryPath(scanner);
+        resultPath = Paths.get("src/main/resources/directoryResults.txt");
         try (BufferedWriter writer = Files.newBufferedWriter(resultPath, StandardCharsets.UTF_8)){
             listDirectoryContent(path, writer);
         } catch (IOException x) {
-            System.err.println(x);
+            System.err.println("File could not be opened.");
         }
         System.out.println("Directory content in " + resultPath.toAbsolutePath());
     }
 
-    public Path askDirectoryPath(){
-        Scanner scanner = new Scanner(System.in);
+    public Path askDirectoryPath(Scanner scanner){
         System.out.println("Enter Directory's path: ");
-        Path dir = Paths.get(scanner.next());
-        scanner.close();
+        Path dir = Paths.get(scanner.nextLine());
         return dir;
     }
 
@@ -58,30 +75,15 @@ public class Directory {
                     type = 'D';
                     Path childPath = pathway.resolve(file.getFileName().toString());
                     int newHierarchyPosition = hierarchyPosition + 1;
-                    writer.write(marker + file.getFileName() + " " + type + "\n");
+                    writer.write(marker + file.getFileName() + " " + type + " " + Files.getLastModifiedTime(file) + "\n");
                     listDirectoryContent(childPath, writer, newHierarchyPosition);
                 } else if (Files.isRegularFile(file)) {
                     type = 'F';
-                    writer.write(marker + file.getFileName() + " " + type + "\n");
+                    writer.write(marker + file.getFileName() + " " + type + " " + Files.getLastModifiedTime(file) + "\n");
                 }
             }
         } catch (IOException x) {
-            System.err.println(x);
-        }
-    }
-
-    public void readFile() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter .txt file directory's path: ");
-        Path filePath = Paths.get(scanner.next());
-        scanner.close();
-        try {
-            List<String> lines = Files.readAllLines(filePath, StandardCharsets.UTF_8);
-            for (String line : lines) {
-                System.out.println(line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("File could not be opened.");
         }
     }
 }
