@@ -1,20 +1,21 @@
 package org.example;
 
 import java.io.IOException;
-import java.nio.file.DirectoryStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Scanner;
 
 public class Directory {
 
-    public void inspectDirectory(String directoryPath) {
+    public void inspectDirectory(String directoryPath) throws InvalidPathException, NotDirectoryException, IOException {
 
         ArrayList<Path> files = new ArrayList<>();
+
         Path directory = Paths.get(directoryPath);
+
+        if (!Files.isDirectory(directory)) {
+            throw new NotDirectoryException("Not a directory");
+        }
 
         try (DirectoryStream<Path> stream = Files.newDirectoryStream(directory)) {
             for (Path file : stream) {
@@ -24,8 +25,6 @@ public class Directory {
             for (Path file : files) {
                 System.out.println(file.getFileName());
             }
-        } catch (IOException e){
-            e.printStackTrace();
         }
     }
 }
