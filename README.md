@@ -6,8 +6,9 @@ Gradle, Logger
 Victoria
 
 ## Comandes per executar els programes
+Entrar a la carpeta de l'Exercici que es vulgui executar i executar les següents comandes:
+
 ### Exercici 1-4
-Entrar a la carpeta de l'Exercici
 
 ```./gradlew build```
 
