@@ -1,9 +1,13 @@
 package org.example;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -12,26 +16,23 @@ import java.util.Scanner;
 
 public class Main {
 
-    static Scanner scanner;
+    private static final Logger log = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) {
 
-        scanner = new Scanner(System.in);
-        readFile();
+        try {
+            readFile(args[0]);
+        } catch (IOException | InvalidPathException e) {
+            log.error("Error reading file");
+        }
     }
 
-    //EXERCICI 4
-    public static void readFile() {
+    public static void readFile(String path) throws InvalidPathException,IOException {
         System.out.println("Enter .txt file directory's path: ");
-        String path = scanner.nextLine();
         Path filePath = Paths.get(path);
-        try {
-            List<String> lines = Files.readAllLines(filePath, StandardCharsets.UTF_8);
-            for (String line : lines) {
-                System.out.println(line);
-            }
-        } catch (IOException e) {
-            System.out.println("Error reading file: " + e.getMessage());
+        List<String> lines = Files.readAllLines(filePath, StandardCharsets.UTF_8);
+        for (String line : lines) {
+            System.out.println(line);
         }
     }
 }
