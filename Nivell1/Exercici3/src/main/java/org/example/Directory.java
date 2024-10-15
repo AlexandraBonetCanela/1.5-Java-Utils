@@ -1,48 +1,34 @@
 package org.example;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.*;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Scanner;
 
 public class Directory {
 
+    private static final Logger logger = LoggerFactory.getLogger(Directory.class);
     Path resultPath;
     public Directory(){}
 
-    //EXERCICI 1
-    public void inspectDirectory(Scanner scanner){
-        Path directoryPath = askDirectoryPath(scanner);
-
-        ArrayList<Path> files = new ArrayList<>();
-
-        try (DirectoryStream<Path> stream = Files.newDirectoryStream(directoryPath)) {
-            for (Path file : stream) {
-                files.add(file);
-            }
-            files.sort(Comparator.comparing(path -> path.getFileName().toString()));
-            for (Path file : files) {
-                System.out.println(file.getFileName());
-            }
-        } catch (IOException e){
-            e.printStackTrace();
-        }
-    }
-
-
-    //EXERCICI 2 & 3
     public void inspectTreeDirectoryContent(Scanner scanner){
         Path path = askDirectoryPath(scanner);
         resultPath = Paths.get("src/main/resources/directoryResults.txt");
         try (BufferedWriter writer = Files.newBufferedWriter(resultPath, StandardCharsets.UTF_8)){
             listDirectoryContent(path, writer);
         } catch (IOException x) {
-            System.err.println("File could not be opened.");
+            logger.error("File could not be opened.");
         }
-        System.out.println("Directory content in " + resultPath.toAbsolutePath());
+        System.out.println("Directory content in: " + resultPath.toAbsolutePath());
     }
 
     public Path askDirectoryPath(Scanner scanner){
@@ -82,7 +68,7 @@ public class Directory {
                 }
             }
         } catch (IOException x) {
-            System.err.println("File could not be opened.");
+            logger.error("Could not list directory content.");
         }
     }
 }

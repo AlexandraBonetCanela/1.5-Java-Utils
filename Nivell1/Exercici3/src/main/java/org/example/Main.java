@@ -2,8 +2,8 @@ package org.example;
 
 import java.util.Scanner;
 
-
 public class Main {
+
 
     static Scanner scanner;
 
@@ -12,6 +12,6 @@ public class Main {
         scanner = new Scanner(System.in);
         Directory directory = new Directory();
 
-        directory.inspectDirectory(scanner);
+        directory.inspectTreeDirectoryContent(scanner);
     }
 }
