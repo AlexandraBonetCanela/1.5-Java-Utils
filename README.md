@@ -1,9 +1,20 @@
 # 1.5-Java-Utils
 
-## Nivell 1
-### Exercici 1
-Entrar a la carpeta Exercici_1
+## Tecnologies
+Gradle, Logger
+## Revisat per
+Victoria
+
+## Comandes per executar els programes
+### Exercici 1-4
+Entrar a la carpeta de l'Exercici
 
 ```./gradlew build```
 
 ```./gradlew run --args="."```
+
+### Exercici 5
+
+```./gradlew build```
+
+```./gradlew run```
