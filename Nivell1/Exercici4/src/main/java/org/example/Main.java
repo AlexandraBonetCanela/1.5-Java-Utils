@@ -11,7 +11,6 @@ import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Scanner;
 
 
 public class Main {
@@ -28,7 +27,6 @@ public class Main {
     }
 
     public static void readFile(String path) throws InvalidPathException,IOException {
-        System.out.println("Enter .txt file directory's path: ");
         Path filePath = Paths.get(path);
         List<String> lines = Files.readAllLines(filePath, StandardCharsets.UTF_8);
         for (String line : lines) {
