@@ -1,21 +1,32 @@
 # 1.5-Java-Utils
 
-## Tecnologies
+## Technologies
 Gradle, Logger
-## Revisat per
+## Reviewed by
 Victoria
 
-## Comandes per executar els programes
-Entrar a la carpeta de l'Exercici que es vulgui executar i executar les següents comandes:
+## How to run the programs:
+Go to the base folder of the exercise you wish to run and execute the following commands:
 
-### Exercici 1-4
+### For exercises 1 to 4 from Nivell 1
+
+To compile .java file execute this command on the base folder of the exercise
+
+```./gradlew build```
+
+To execute program:
+
+```./gradlew run --args="DIRECTORY_PATH"```
+
+Substitute DIRECTORY_PATH by the desired path you wish to inspect its contents.
+
+
+### For Exercise 5
+
+To compile .java file execute this command on the base folder of the exercise
 
 ```./gradlew build```
 
-```./gradlew run --args="."```
-
-### Exercici 5
-
-```./gradlew build```
+To execute program:
 
 ```./gradlew run```
