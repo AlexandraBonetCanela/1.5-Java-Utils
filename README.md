@@ -1,7 +1,7 @@
 # 1.5-Java-Utils
 
 ## Technologies
-Gradle, Logger
+Gradle, Java 20, Logger
 ## Reviewed by
 Victoria
 
