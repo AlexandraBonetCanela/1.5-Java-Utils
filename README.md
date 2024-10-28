@@ -3,7 +3,7 @@
 ## Technologies
 Gradle, Java 20, Logger
 ## Reviewed by
-Victoria
+Santiago Hernandez & Victoria
 
 ## How to run the programs:
 Go to the base folder of the exercise you wish to run and execute the following commands:
