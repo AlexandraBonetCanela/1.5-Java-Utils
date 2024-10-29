@@ -14,4 +14,20 @@ public class Teacher implements Serializable {
         this.email = email;
         this.phone = phone;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
 }

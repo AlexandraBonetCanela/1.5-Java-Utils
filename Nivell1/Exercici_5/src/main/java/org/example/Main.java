@@ -19,7 +19,7 @@ public class Main {
         }
 
         try {
-            deserialize("src/main/resources/scienceTeacher.ser");
+            deserializeTeacher("src/main/resources/scienceTeacher.ser");
         } catch (ClassNotFoundException e) {
             log.error("Could not find the correct class to deserialize");
         } catch (IOException e) {
@@ -35,14 +35,17 @@ public class Main {
         }
     }
 
-    public static Object deserialize(String fileName) throws IOException, ClassNotFoundException {
-        Object object = null;
+    public static void deserializeTeacher(String fileName) throws IOException, ClassNotFoundException {
+        Teacher deserializedObject = null;
         try(FileInputStream fis = new FileInputStream(fileName);
             ObjectInputStream ois = new ObjectInputStream(fis)){
-            object = ois.readObject();
+            deserializedObject = (Teacher) ois.readObject();
             System.out.println("Object deserialized successfully: ");
-            System.out.println(object);
+            System.out.println(deserializedObject);
+            System.out.println(deserializedObject.getId());
+            System.out.println(deserializedObject.getName());
+            System.out.println(deserializedObject.getEmail());
+            System.out.println(deserializedObject.getPhone());
         }
-        return object;
     }
 }
