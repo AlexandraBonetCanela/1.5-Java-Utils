@@ -23,18 +23,15 @@ public class Directory {
         Path path = Paths.get(directoryPath);
 
         if (!Files.isDirectory(path)) {
-            throw new NotDirectoryException("Not a path");
+            throw new NotDirectoryException("Not a directory");
         }
 
         resultPath = Paths.get(outputFile);
 
         try (BufferedWriter writer = Files.newBufferedWriter(resultPath, StandardCharsets.UTF_8)){
             listDirectoryContent(path, writer);
-        } catch (IOException x) {
-            logger.error("File could not be opened.");
-            throw x;
         }
-        System.out.println("Directory content in: " + resultPath.toAbsolutePath());
+        System.out.println("Directory content saved in: " + resultPath.toAbsolutePath());
     }
 
     public void listDirectoryContent(Path dir, BufferedWriter writer) throws IOException {
